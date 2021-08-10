@@ -34,6 +34,14 @@ function saveRecord(record) {
 
 // basically checks the indexeddb database and pulls whatever is in there out and puts it in mongodb - if you add something offline and then go back online, it will put it in mongo once you're online
 function checkDatabase() {
+  // Open a transaction on your BudgetStore db
+  let transaction = db.transaction(["BudgetStore"], "readwrite");
+
+  // access your BudgetStore object
+  const store = transaction.objectStore("BudgetStore");
+
+  // Get all records from store and set to a variable
+  const getAll = store.getAll();
   // open a transaction on your pending db
   // access your pending object store
   // get all records from store and set to a variable
