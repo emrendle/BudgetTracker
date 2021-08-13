@@ -26,7 +26,7 @@ function saveRecord(record) {
   store.add(record);
 }
 
-// basically checks the indexeddb database and pulls whatever is in there out and puts it in mongodb - if you add something offline and then go back online, it will put it in mongo once you're online
+// checks the indexeddb database and pulls whatever is in there out and puts it in mongodb - if you add something offline and then go back online, it will put it in mongo once you're online
 function checkDatabase() {
   // Open a transaction on your BudgetStore db
   let transaction = db.transaction(["BudgetStore"], "readwrite");
@@ -36,9 +36,6 @@ function checkDatabase() {
 
   // Get all records from store and set to a variable
   const getAll = store.getAll();
-  // open a transaction on your pending db
-  // access your pending object store
-  // get all records from store and set to a variable
 
   getAll.onsuccess = function () {
     if (getAll.result.length > 0) {
@@ -62,9 +59,6 @@ function checkDatabase() {
             // Clear existing entries because our bulk add was successful
             currentStore.clear();
           }
-          // if successful, open a transaction on your pending db
-          // access your pending object store
-          // clear all items in your store
         });
     }
   };
