@@ -21,7 +21,7 @@ The deployed application requires no installation. Developers working with this 
 
 The user can enter a transaction name and transaction amount and either add those funds to their budget or subtract funds from their budget. The graph will update upon addition of new funds or expenses. If the user loses internet connection, upon reconnection the graph will update accordingly for any expenses or funds added while offline.
 
-![A demonstration of the README Generator using sample inputs](assets/images/BudgetTrackerExample.png).
+![A demonstration of the README Generator using sample inputs](assets/images/BudgetTrackerExample.png)
 
 ## Contributing
 
