@@ -5,28 +5,22 @@ const request = window.indexedDB.open("BudgetDB", 1);
 request.onupgradeneeded = function (event) {
   // create object store called "BudgetStore" and set autoIncrement to true
   const db = event.target.result;
-
   db.createObjectStore("BudgetStore", { autoIncrement: true });
 };
 
 request.onsuccess = function (event) {
   db = event.target.result;
-
   if (navigator.onLine) {
     checkDatabase();
   }
 };
 
 request.onerror = function (event) {
-  // log error here
   console.log(`Woops! ${event.target.errorCode}.`);
 };
 
 function saveRecord(record) {
-  // create a transaction on the pending db with readwrite access
-  // access your pending object store
-  // add record to your store with add method.
-
+  // creating a transaction on the pending db with readwrite access, accessing the pending object store, adding record to the store
   const transaction = db.transaction(["BudgetStore"], "readwrite");
   const store = transaction.objectStore("BudgetStore");
   store.add(record);
@@ -57,7 +51,17 @@ function checkDatabase() {
         },
       })
         .then((response) => response.json())
-        .then(() => {
+        .then((res) => {
+          if (res.length !== 0) {
+            // Open another transaction to BudgetStore with the ability to read and write
+            transaction = db.transaction(["BudgetStore"], "readwrite");
+
+            // Assign the current store to a variable
+            const currentStore = transaction.objectStore("BudgetStore");
+
+            // Clear existing entries because our bulk add was successful
+            currentStore.clear();
+          }
           // if successful, open a transaction on your pending db
           // access your pending object store
           // clear all items in your store
